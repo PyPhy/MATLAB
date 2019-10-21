@@ -1,0 +1,38 @@
+%program to visualise electric field
+EPS0=8.8542*10^(-12);
+NN=input('enter the number of charges (positive integer): ');
+for ii=1:NN
+xline(ii)=input(['Enter the X coordinate in m for charge ',int2str(ii),': ']);
+yline(ii)=input(['Enter the y coordinate in m for charge ',int2str(ii),': ']);
+Q(ii)=input(['Enter the charge in C for charge ',int2str(ii),': ']);
+end
+%define a 2D mesh of field points [x,y] in the xy-plane
+%coordinates of space points where we want to fine E
+v=-0.825*10:0.015*10:0.975*(max(xline)+max(yline)+1);
+u=-0.525*10:0.015*10:0.675*(max(xline)+max(yline)+1);
+[x,y]=meshgrid(v,u);
+[M,N]=size(x);
+%E
+for i=1:M
+for j=1:N
+for t=1:length(xline)
+r(i,j,t,:)=[x(i,j)-xline(t) y(i,j)-yline(t)];
+rabs(i,j,t)=vectorMag(r(i,j,t,:));
+runit(i,j,t,:)=r(i,j,t,:)/rabs(i,j,t);
+E(i,j,t,:)=Q(t)*runit(i,j,t,:)/(4*pi*EPS0*rabs(i,j,t)^2);
+end;
+Etotx(i,j)=sum(E(i,j,:,1));
+Etoty(i,j)=sum(E(i,j,:,2));
+end;
+end;
+%plotting
+figure(1);
+hold on;
+for ik=1:NN
+plot(xline(ik),yline(ik),'o','MarkerSize',10,'MarkerFaceColor','b');
+end
+quiver(v,u,Etotx,Etoty);
+hold off;
+title('Field distribution');
+xlabel('x[m]');
+ylabel('y[m]');

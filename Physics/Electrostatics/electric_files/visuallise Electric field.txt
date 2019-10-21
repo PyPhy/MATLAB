@@ -1,0 +1,37 @@
+>> %program to visualise electric field in a straight wire
+EPS0=8.8542*10^(-12);
+Q=input('enter the charge in C: ');
+a=input('enter the length in m: ');
+rho=Q/a;    %linear charge density
+dl=0.001*a;  %dived total length by 1000
+xline=-a/2:dl:a/2;   %x and y coordinates of charge destribution
+yline=zeros(1,length(xline));
+%define a 2D mesh of field points [x,y] in the xy-plane
+%coordinates of space points where we want to fine E
+v=-0.825*a:0.15*a:0.975*a;
+u=-0.525*a:0.15*a:0.675*a;
+[x,y]=meshgrid(v,u);
+[M,N]=size(x);
+%E
+for i=1:M
+for j=1:N
+for t=1:length(xline)
+r(i,j,t,:)=[x(i,j)-xline(t) y(i,j)-yline(t)];
+rabs(i,j,t)=vectorMag(r(i,j,t,:));
+runit(i,j,t,:)=r(i,j,t,:)/rabs(i,j,t);
+E(i,j,t,:)=rho*dl*runit(i,j,t,:)/(4*pi*EPS0*rabs(i,j,t)^2);
+end;
+Etotx(i,j)=sum(E(i,j,:,1));
+Etoty(i,j)=sum(E(i,j,:,2));
+end;
+end;
+%plotting
+figure(1);
+line([-a/2 a/2],[0 0]);
+hold on;
+quiver(v,u,Etotx,Etoty);
+hold off;
+title('Field distribution');
+xlabel('x[m]');
+ylabel('y[m]');
+grid on

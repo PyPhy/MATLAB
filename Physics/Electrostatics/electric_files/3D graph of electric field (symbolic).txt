@@ -1,0 +1,12 @@
+k=9*10^9;
+syms x y
+Q=input('enter the charge: ');
+E=(k*Q)./(x.^2+y.^2);
+figure('color',[0.999 1 0.9]);
+ezsurfc(E);     %use ezmeshc and see the result.
+axis square
+colorbar;
+xlabel('X');
+ylabel('Y');
+zlabel('E');
+title('Electic field 3D');

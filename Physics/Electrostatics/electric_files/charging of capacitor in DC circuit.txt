@@ -1,0 +1,10 @@
+% R-C ,DC circuits
+%charging of capacitor
+C=input('enter the capcitance: ');
+V=input('enter the battery voltage: ');
+R=input('enter the resistance: ');
+time=input('enter the time: ');
+acc=input('enter the accuracy: ');
+t=0:acc:time;
+Q=(C*V).*(1-exp((-1)*(t./(R*C))));
+plot(t,Q,'*b');
