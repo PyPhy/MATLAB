@@ -1,0 +1,7 @@
+x=0:0.1:10;
+for k=1:0.05:10
+axis([0 10 -2 2]);
+y=cos(k*x);
+plot(x,y);
+drawnow;
+end

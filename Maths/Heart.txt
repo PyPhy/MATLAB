@@ -1,0 +1,6 @@
+x=-2:0.001:2;
+y=(sqrt(cos(x)).*cos(200*x)+sqrt(abs(x))-0.7).*(4-x.*x).^0.01;
+figure('color',[0.999 1 0.9]);
+plot(x,y,'color','r');
+axis square
+set(findobj('type','line'),'linewidth',2);

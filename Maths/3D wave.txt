@@ -1,0 +1,14 @@
+syms x y
+Z1=sqrt(1-(sin(x))^2-(cos(y))^2);  %try different combinations of sin and cos 
+ezsurf(Z1);
+hold on
+Z2=-sqrt(1-(sin(x))^2-(cos(y))^2); %(-)sign because z^2 has two values +/-
+ezsurf(Z2);
+hold off
+axis square
+axis equal
+colorbar;
+xlabel('X');
+ylabel('Y');
+zlabel('Z');
+title('z^2+(sin(x))^2+(cos(y))^2=1');

@@ -1,0 +1,8 @@
+syms theta
+a=input('enter the value of a: ');  %check the result for a=2 & b=2
+b=input('enter the value of b: ');
+r=a+b*cos(theta);
+ezpolar(r);
+title('Limacon');
+set(findobj('type','line'),'color','r')
+set(findobj('type','line'),'linewidth',2)
